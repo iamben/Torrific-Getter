@@ -68,6 +68,7 @@ class HomeParser(HTMLParser):
             self.__entry.append(data.split()[0])
             self.__dataList.append(self.__entry[:])
             self.__entry = []
+            self.__inStatus = False
 
     #######################
     # [ [name, url, status].....]
