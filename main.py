@@ -41,7 +41,7 @@ def main():
             if t[2] == 'available':
 		print i,"[1;32m"+t[0]+"[m"
             else:
-		print i,"[1;31m"+t[0]+"[m"
+		print i,"[1;31m"+t[0]+"[m","[1;35m"+t[2]+"[m"
 	selected = int(raw_input("Select the torrent: "))
 
 	if tor[selected][2] != 'available':
