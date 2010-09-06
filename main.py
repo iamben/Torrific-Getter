@@ -13,7 +13,6 @@ def main():
     #init
     ##############################
     DirList = []
-    #RawData = sys.stdin.read();
     TorrentParser = Parser.TorrentParser()
     HomeParser = Parser.HomeParser()
     cj = cookielib.CookieJar()
