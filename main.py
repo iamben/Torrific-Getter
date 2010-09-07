@@ -5,7 +5,7 @@ import Parser
 
 def main():
     if len(sys.argv) != 2:
-        sys.stderr.write("Usage: getFiles.py topLevelDir\n")
+        sys.stderr.write("Usage: main.py topLevelDir\n")
 	exit(1)
 
 
