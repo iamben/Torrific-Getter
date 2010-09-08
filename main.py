@@ -83,10 +83,7 @@ def main():
     ##############################
     #now fetch the file
     ##############################
-    for filePath in fileAddrPair:
-        print filePath, fileAddrPair[filePath]
-	fileStream = urllib2.urlopen(fileAddrPair[filePath])
-	helper.chunk_read( fileStream, sys.argv[1]+"/"+filePath, report_hook=helper.chunk_report )
+    helper.Download( [(sys.argv[1]+'/'+x[0],x[1]) for x in fileAddrPair.items()], 5)
 
 if __name__ == '__main__':
     main()

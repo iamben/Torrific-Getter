@@ -1,5 +1,7 @@
 import os
 import sys
+import multiprocessing
+import urllib2
 
 def chunk_report( bytes_so_far, chunk_size, total_size ):
         percent = float(bytes_so_far) / total_size
@@ -13,15 +15,16 @@ def chunk_report( bytes_so_far, chunk_size, total_size ):
 
 
 
-def chunk_read( response, fileName, chunk_size=8192, report_hook=None ):
+def chunk_read( fileInfo, chunk_size=8192, report_hook=None ):
+	response = urllib2.urlopen(fileInfo[1])
         total_size = int( response.info().getheader('Content-Length').strip() )
         bytes_so_far = 0
 
-        if os.path.exists( fileName ) and os.path.getsize( fileName ) == total_size:
+        if os.path.exists(fileInfo[0]) and os.path.getsize(fileInfo[0]) == total_size:
                 print "File exists, skip."
                 sys.exit(1)
 
-        fp = open( fileName, "wb" )
+        fp = open( fileInfo[0], "wb" )
 
         while True:
                 chunk = response.read(chunk_size)
@@ -37,4 +40,12 @@ def chunk_read( response, fileName, chunk_size=8192, report_hook=None ):
                         report_hook(bytes_so_far, chunk_size, total_size)
 
         fp.close()
+	print "Finished:", fileInfo[0].split('/',1)[1]
         return bytes_so_far
+
+
+#fileList: [(name,response),...]
+def Download( fileList, numProc ):
+    WorkerPool = multiprocessing.Pool(processes=numProc)
+    WorkerPool.map( chunk_read, fileList )
+    #chunk_read( response, fileName, chunk_size=8192, report_hook=chunk_report )
