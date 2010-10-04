@@ -75,3 +75,24 @@ class HomeParser(HTMLParser):
     #######################
     def get_data(self):
         return self.__dataList
+
+class LoginParser(HTMLParser):
+    __inForm = False
+    csrValue = ""
+
+    def handle_starttag(self, tag, attrs):
+        if tag == 'form':
+            self.__inForm = True
+	elif self.__inForm and tag == 'input':
+            isTarget = False
+            for name,value in attrs:
+		if name.lower() == 'name' and value.lower() == 'csrfmiddlewaretoken':
+                    isTarget = True
+		elif isTarget and name == 'value':
+                    isTarget = False
+		    self.csrValue = value
+
+    def handle_endtag(self, tag):
+        if tag == 'form':
+             self.__inForm = False
+

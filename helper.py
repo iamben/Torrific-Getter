@@ -26,6 +26,8 @@ def chunk_read( fileInfo, chunk_size=8192, report_hook=None ):
 
         fp = open( fileInfo[0], "wb" )
 
+	print "Starting a job..."
+
         while True:
                 chunk = response.read(chunk_size)
                 bytes_so_far += len(chunk)
@@ -48,4 +50,3 @@ def chunk_read( fileInfo, chunk_size=8192, report_hook=None ):
 def Download( fileList, numProc ):
     WorkerPool = multiprocessing.Pool(processes=numProc)
     WorkerPool.map( chunk_read, fileList )
-    #chunk_read( response, fileName, chunk_size=8192, report_hook=chunk_report )

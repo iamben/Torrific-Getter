@@ -15,6 +15,7 @@ def main():
     DirList = []
     TorrentParser = Parser.TorrentParser()
     HomeParser = Parser.HomeParser()
+    LoginParser = Parser.LoginParser()
     cj = cookielib.CookieJar()
     opener = urllib2.build_opener( urllib2.HTTPCookieProcessor( cj ) )
     urllib2.install_opener( opener )
@@ -24,7 +25,8 @@ def main():
     ##############################
     loginName = raw_input('Login Name: ')
     passwd = getpass.getpass("Torrific: %s's password:" % loginName)
-    values = { "email":loginName, "password":passwd }
+    LoginParser.feed( urllib2.urlopen('http://torrific.com/login/').read().decode('utf-8') )
+    values = { "email":loginName, "password":passwd, "csrfmiddlewaretoken":LoginParser.csrValue }
     data = urllib.urlencode(values)
     loginReq = urllib2.Request( 'http://torrific.com/login/', data )
     login = urllib2.urlopen(loginReq)
