@@ -85,7 +85,7 @@ def main():
     ##############################
     #now fetch the file
     ##############################
-    helper.Download( [(sys.argv[1]+'/'+x[0],x[1]) for x in fileAddrPair.items()], sys.argv[2] )
+    helper.Download( [(sys.argv[1]+'/'+x[0],x[1]) for x in fileAddrPair.items()], int(sys.argv[2]) )
 
 if __name__ == '__main__':
     main()
