@@ -4,8 +4,8 @@ import helper
 import Parser
 
 def main():
-    if len(sys.argv) != 2:
-        sys.stderr.write("Usage: main.py topLevelDir\n")
+    if len(sys.argv) != 3:
+        sys.stderr.write("Usage: main.py topLevelDir numProc\n")
 	exit(1)
 
 
@@ -85,7 +85,7 @@ def main():
     ##############################
     #now fetch the file
     ##############################
-    helper.Download( [(sys.argv[1]+'/'+x[0],x[1]) for x in fileAddrPair.items()], 5)
+    helper.Download( [(sys.argv[1]+'/'+x[0],x[1]) for x in fileAddrPair.items()], sys.argv[2] )
 
 if __name__ == '__main__':
     main()
